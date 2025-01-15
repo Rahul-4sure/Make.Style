@@ -1,0 +1,216 @@
+//import React from 'react';
+//import React from 'react';
+import { useTheme } from '../context/ThemeContext';
+
+interface TextControlsProps {
+  text: string;
+  fontSize: number;
+  fontWeight: number;
+  letterSpacing: number;
+  fontFamily: string;
+  textAlign: 'left' | 'center' | 'right';
+  textShadow: string;
+  textTransform: 'none' | 'uppercase' | 'lowercase' | 'capitalize';
+  textColor: string;
+  onTextChange: (text: string) => void;
+  onFontSizeChange: (size: number) => void;
+  onFontWeightChange: (weight: number) => void;
+  onLetterSpacingChange: (spacing: number) => void;
+  onFontFamilyChange: (family: string) => void;
+  onTextAlignChange: (align: 'left' | 'center' | 'right') => void;
+  onTextShadowChange: (shadow: string) => void;
+  onTextTransformChange: (transform: 'none' | 'uppercase' | 'lowercase' | 'capitalize') => void;
+  onTextColorChange: (color: string) => void;
+}
+
+export function TextControls({
+  text,
+  fontSize,
+  fontWeight,
+  letterSpacing,
+  fontFamily,
+  textAlign,
+  textShadow,
+  textTransform,
+  textColor,
+  onTextChange,
+  onFontSizeChange,
+  onFontWeightChange,
+  onLetterSpacingChange,
+  onFontFamilyChange,
+  onTextAlignChange,
+  onTextShadowChange,
+  onTextTransformChange,
+  onTextColorChange,
+}: TextControlsProps) {
+  const { theme } = useTheme();
+  const fontFamilies = [
+    'Inter',
+    'Roboto',
+    'Poppins',
+    'Playfair Display',
+    'Space Grotesk',
+    'Montserrat',
+    'Open Sans',
+    'Lato'
+  ];
+
+  const textShadowPresets = [
+    { name: 'None', value: 'none' },
+    { name: 'Soft', value: '2px 2px 4px rgba(0,0,0,0.3)' },
+    { name: 'Hard', value: '3px 3px 0px rgba(0,0,0,0.8)' },
+    { name: 'Glow', value: '0 0 10px rgba(255,255,255,0.8)' },
+    { name: 'Neon', value: '0 0 5px #fff, 0 0 10px #fff, 0 0 15px #0073e6, 0 0 20px #0073e6' }
+  ];
+
+  const transformOptions = [
+    { label: 'None', value: 'none' },
+    { label: 'Uppercase', value: 'uppercase' },
+    { label: 'Lowercase', value: 'lowercase' },
+    { label: 'Capitalize', value: 'capitalize' }
+  ];
+
+  return (
+    <div className="space-y-6 overflow-y-auto">
+      <div>
+        <label className="text-sm text-gray-400 mb-2 block">Text</label>
+        <input
+          type="text"
+          value={text}
+          onChange={(e) => onTextChange(e.target.value)}
+          className={`w-full rounded-lg px-4 py-2 ${
+            theme === 'dark' ? 'bg-[#2a2a2a] text-white' : 'bg-gray-100 text-gray-900'
+          } hover:ring-2 hover:ring-blue-500 transition-all`}
+        />
+      </div>
+
+      <div>
+        <label className="text-sm text-gray-400 mb-2 block">Text Color</label>
+        <input
+          type="color"
+          value={textColor}
+          onChange={(e) => onTextColorChange(e.target.value)}
+          className="w-full h-10 rounded-lg cursor-pointer"
+        />
+      </div>
+
+      <div>
+        <label className="text-sm text-gray-400 mb-2 block">Font Family</label>
+        <select
+          value={fontFamily}
+          onChange={(e) => onFontFamilyChange(e.target.value)}
+          className={`w-full rounded-lg px-4 py-2 ${
+            theme === 'dark' ? 'bg-[#2a2a2a] text-white' : 'bg-gray-100 text-gray-900'
+          } hover:ring-2 hover:ring-blue-500 transition-all`}
+        >
+          {fontFamilies.map(font => (
+            <option key={font} value={font}>{font}</option>
+          ))}
+        </select>
+      </div>
+
+      <div>
+        <label className="text-sm text-gray-400 mb-2 block">Text Transform</label>
+        <div className="grid grid-cols-2 gap-2">
+          {transformOptions.map(({ label, value }) => (
+            <button
+              key={value}
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              onClick={() => onTextTransformChange(value as any)}
+              className={`py-2 px-3 rounded-lg transition-all ${
+                textTransform === value
+                  ? 'bg-blue-500 text-white'
+                  : theme === 'dark'
+                  ? 'bg-[#2a2a2a] hover:bg-[#3a3a3a]'
+                  : 'bg-gray-100 hover:bg-gray-200'
+              }`}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <label className="text-sm text-gray-400 mb-2 block">Text Shadow</label>
+        <div className="grid grid-cols-2 gap-2">
+          {textShadowPresets.map(({ name, value }) => (
+            <button
+              key={name}
+              onClick={() => onTextShadowChange(value)}
+              className={`py-2 px-3 rounded-lg transition-all ${
+                textShadow === value
+                  ? 'bg-blue-500 text-white'
+                  : theme === 'dark'
+                  ? 'bg-[#2a2a2a] hover:bg-[#3a3a3a]'
+                  : 'bg-gray-100 hover:bg-gray-200'
+              }`}
+            >
+              {name}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Existing controls with hover effects added */}
+      <div>
+        <label className="text-sm text-gray-400 mb-2 block">Text Align</label>
+        <div className="flex gap-2">
+          {['left', 'center', 'right'].map((align) => (
+            <button
+              key={align}
+              onClick={() => onTextAlignChange(align as 'left' | 'center' | 'right')}
+              className={`flex-1 py-2 rounded-lg transition-all hover:ring-2 hover:ring-blue-500 ${
+                textAlign === align
+                  ? 'bg-blue-500 text-white'
+                  : theme === 'dark'
+                  ? 'bg-[#2a2a2a]'
+                  : 'bg-gray-100'
+              }`}
+            >
+              {align.charAt(0).toUpperCase() + align.slice(1)}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Other controls with proper styling */}
+      <div>
+        <label className="text-sm text-gray-400 mb-2 block">Font Size ({fontSize}px)</label>
+        <input
+          type="range"
+          min="12"
+          max="200"
+          value={fontSize}
+          onChange={(e) => onFontSizeChange(Number(e.target.value))}
+          className="w-full accent-blue-500"
+        />
+      </div>
+
+      <div>
+        <label className="text-sm text-gray-400 mb-2 block">Font Weight ({fontWeight})</label>
+        <input
+          type="range"
+          min="100"
+          max="900"
+          step="100"
+          value={fontWeight}
+          onChange={(e) => onFontWeightChange(Number(e.target.value))}
+          className="w-full accent-blue-500"
+        />
+      </div>
+
+      <div>
+        <label className="text-sm text-gray-400 mb-2 block">Letter Spacing ({letterSpacing}px)</label>
+        <input
+          type="range"
+          min="-10"
+          max="20"
+          value={letterSpacing}
+          onChange={(e) => onLetterSpacingChange(Number(e.target.value))}
+          className="w-full accent-blue-500"
+        />
+      </div>
+    </div>
+  );
+}
