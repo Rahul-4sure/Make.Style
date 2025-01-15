@@ -18,8 +18,8 @@ You can view a live demo of the application at ([[https://aquamarine-croissant-d
 ## Features
 
 ### Admin Module
-- Add, update, and delete companies.
-- Configure communication methods and periodicity.
+- take screenshorts, twiteer screenshort, code screenshort and more.
+- Add your own background immage .
 - Edit company details (name and communication preferences).
 - Manage a centralized list of companies.
 
