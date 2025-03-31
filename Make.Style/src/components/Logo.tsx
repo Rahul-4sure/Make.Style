@@ -9,7 +9,7 @@ export function Logo() {
 
       <span className="text-xs bg-[#2b2929] px-2 py-1 rounded hover:bg-sky-700 shadow hover:scale-[1.1]">v0.4 Beta</span>
 
-      <span className="text-xs bg-[#2a2a2a] px-2 py-1 rounded">v0.4 Beta</span>
+   
 
     </div>
   );
